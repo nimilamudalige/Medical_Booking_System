@@ -1,0 +1,13 @@
+package lk.ijse.medicalbookingsystem.dto;
+
+import jdk.jfr.DataAmount;
+
+@AllArgsConstructor
+@Data
+
+public class UserDTO {
+    private String username;
+    private String password;
+    private String email;
+    private String role;
+}
