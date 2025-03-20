@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ClientDTO {
-    private String clientId;
+    private UUID clientId;
     private String firstName;
     private String lastName;
     private int age;

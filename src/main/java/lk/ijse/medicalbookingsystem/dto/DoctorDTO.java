@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class DoctorDTO {
+  private String docId;
   private String name;
   private String email;
   private String contact;
