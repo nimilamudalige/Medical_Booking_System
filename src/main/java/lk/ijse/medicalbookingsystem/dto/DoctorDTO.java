@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class DoctorDTO {
   private String docId;
   private String name;
+  private String image;
   private String email;
   private String contact;
   private String about;

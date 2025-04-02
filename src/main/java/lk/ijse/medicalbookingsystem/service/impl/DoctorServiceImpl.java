@@ -25,10 +25,9 @@ public class DoctorServiceImpl implements DoctorService {
         private ModelMapper modelMapper;
         @Override
         public void saveDoctor(DoctorDTO doctorDTO) {
-            if (doctorRepo.existsById(doctorDTO.getDocId())) {
-                throw new RuntimeException("Doctor already exists");
-            }
-            doctorRepo.save(modelMapper.map(doctorDTO, Doctor.class));
+            Doctor doctor = modelMapper.map(doctorDTO, Doctor.class);
+            Doctor savedDoctor = doctorRepo.save(doctor);
+            doctorDTO.setDocId(String.valueOf(savedDoctor.getDocId()));
         }
 
         @Override

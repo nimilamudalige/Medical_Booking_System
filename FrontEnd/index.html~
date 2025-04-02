@@ -968,7 +968,7 @@
         <p>Schedule an appointment with one of our specialists today. We're here to provide you with the best medical care possible.</p>
         <div class="cta-buttons">
             <a href="#" class="cta-button">Book an Appointment</a>
-            <a href="contact.html" class="cta-button-outline">Contact Us</a>
+            <a href="#" class="cta-button-outline">Contact Us</a>
         </div>
     </div>
 </section>

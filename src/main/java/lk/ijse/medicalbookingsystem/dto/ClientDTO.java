@@ -15,7 +15,9 @@ public class ClientDTO {
     private String lastName;
     private int age;
     private String address;
-    private int contact;
+    private String contact;
     private String email;
     private String gender;
 }
+
+//"token": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6Im5pbWlsYUBnbWFpbC5jb20iLCJpYXQiOjE3NDM0MTc5MTMsImV4cCI6MTc0NDQ1NDcxM30.QoV8gOoyxJOrezl5z17M1Jjms5JIS53Vdi5-5VkaEbQLXshYRH2xmKHfGgVX4hmu2GdaXGCHFwA9CBkRXVyHmQ"

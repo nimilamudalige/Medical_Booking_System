@@ -3,7 +3,6 @@ package lk.ijse.medicalbookingsystem.controller;
 import lk.ijse.medicalbookingsystem.dto.DoctorDTO;
 import lk.ijse.medicalbookingsystem.service.impl.DoctorServiceImpl;
 import lk.ijse.medicalbookingsystem.util.Response;
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +24,13 @@ public class DoctorController {
         return new Response(200, "success", doctorService.getAllDoctors());
     }
 
-
     @PutMapping(path = "update")
     public Response updateDoctor(@RequestBody DoctorDTO doctorDTO) {
         doctorService.updateDoctor(doctorDTO);
         return new Response(200,"Doctor is updated",null);
     }
+
+
     @DeleteMapping(path = "delete/{id}")
     public Response deleteDoctor(@PathVariable("id") UUID id) {
         doctorService.deleteDoctor(id);

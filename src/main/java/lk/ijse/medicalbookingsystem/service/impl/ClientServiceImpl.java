@@ -5,50 +5,63 @@ import lk.ijse.medicalbookingsystem.entity.Client;
 import lk.ijse.medicalbookingsystem.repo.ClientRepository;
 import lk.ijse.medicalbookingsystem.service.ClientService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-    @Autowired
-    private ClientRepository clientRepo;
+
+    private final ClientRepository clientRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public ClientServiceImpl(ClientRepository clientRepository, ModelMapper modelMapper) {
+        this.clientRepository = clientRepository;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public void saveClient(ClientDTO clientDTO) {
-        if (clientRepo.existsById(String.valueOf(clientDTO.getClientId()))) {
-            throw new RuntimeException("Client already exists");
-        }
-        clientRepo.save(modelMapper.map(clientDTO, Client.class));
+        Client client = modelMapper.map(clientDTO, Client.class);
+        Client savedClient = clientRepository.save(client);
+        clientDTO.setClientId(UUID.fromString(savedClient.getClientId()));
     }
 
     @Override
     public List<ClientDTO> getAllClients() {
-        return modelMapper.map(
-                clientRepo.findAll(),
-                new TypeToken<List<ClientDTO>>() {}.getType());
+        List<Client> clients = clientRepository.findAll();
+        return clients.stream()
+                .map(client -> modelMapper.map(client, ClientDTO.class))
+                .collect(Collectors.toList());
+    }
 
+//    @Override
+//    public ClientDTO getClientById(UUID clientId) {
+//        Optional<Client> optionalClient = clientRepository.findById(clientId);
+//        return optionalClient.map(client -> modelMapper.map(client, ClientDTO.class)).orElse(null);
+//    }
+
+    @Override
+    public void updateClient( ClientDTO clientDTO) {
+        if (!clientRepository.existsById(clientDTO.getClientId().toString())) {
+            throw new RuntimeException("Client not found with ID: " + clientDTO.getClientId());
+        }
+        Client client = modelMapper.map(clientDTO, Client.class);
+        client.setClientId(clientDTO.getClientId().toString());
+        Client updatedClient = clientRepository.save(client);
+        clientDTO.setClientId(UUID.fromString(updatedClient.getClientId()));
     }
 
     @Override
-    public void updateClient(ClientDTO clientDTO) {
-        if (clientRepo.existsById(String.valueOf(clientDTO.getClientId()))) {
-            clientRepo.save(modelMapper.map(clientDTO, Client.class));
+    public void deleteClient(UUID clientId) {
+        if (!clientRepository.existsById(String.valueOf(clientId))) {
+            throw new RuntimeException("Client not found with ID: " + clientId);
         }
-        throw new RuntimeException("Customer does not exist");
-
-    }
-
-    @Override
-    public void deleteClient(UUID id) {
-        if (clientRepo.existsById(String.valueOf(id))) {
-            clientRepo.deleteById(String.valueOf(id));
-        }
-        throw new RuntimeException("Customer does not exist");
+        clientRepository.deleteById(String.valueOf(clientId));
     }
 }

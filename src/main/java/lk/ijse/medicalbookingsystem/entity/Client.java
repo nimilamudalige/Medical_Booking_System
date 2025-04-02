@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "clientId")
     private String clientId;
     private String firstName;
     private String lastName;

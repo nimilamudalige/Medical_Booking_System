@@ -21,6 +21,7 @@ public class CheckUp implements Serializable {
     private UUID checkUpId;
     private String name;
     private String type;
+    private String image;
     private double price;
     private String duration;
     private String description;
