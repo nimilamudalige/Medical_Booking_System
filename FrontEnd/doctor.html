@@ -6,56 +6,68 @@
     <title>Doctor Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/">
+    <link rel="stylesheet" href="css/doctor.css">
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-5">Doctor Management</h1>
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">Doctor Management</h2>
     <div class="row">
-        <div class="col-md-6">
-            <form id="doctorForm" class="mt-3 p-3 bg-white rounded shadow-sm" style="max-width: 400px;">
-                <div class="form-group">
-                    <label class="font-weight-bold small">Name</label>
-                    <input type="text" class="form-control form-control-sm" id="name" placeholder="Name" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Email</label>
-                    <input type="email" class="form-control form-control-sm" id="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Contact</label>
-                    <input type="text" class="form-control form-control-sm" id="contact" placeholder="Contact" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">About</label>
-                    <textarea class="form-control form-control-sm" id="about" placeholder="About" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Department</label>
-                    <input type="text" class="form-control form-control-sm" id="department" placeholder="Department" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Working Hours</label>
-                    <input type="text" class="form-control form-control-sm" id="workingHours" placeholder="Working Hours" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Charge</label>
-                    <input type="number" class="form-control form-control-sm" id="charge" placeholder="Charge" required>
-                </div>
-                <button type="button" class="btn btn-success btn-sm mr-1" onclick="addDoctor()">Add</button>
-                <button type="button" class="btn btn-warning btn-sm mr-1" onclick="updateDoctor()">Update</button>
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteDoctor()">Delete</button>
-            </form>
+        <div class="col-md-5">
+            <div class="card p-3">
+                <h5 class="text-center text-success">Manage Doctor</h5>
+                <form id="doctorForm" class="mt-3" enctype="multipart/form-data">
+                    <input type="hidden" id="docId"> <!-- Hidden field for docId -->
+                    <div class="form-group">
+                        <label class="font-weight-bold">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Contact</label>
+                        <input type="text" class="form-control" id="contact" placeholder="Enter Contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">About</label>
+                        <textarea class="form-control" id="about" placeholder="Brief About Doctor" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Department</label>
+                        <input type="text" class="form-control" id="department" placeholder="Enter Department" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Working Hours</label>
+                        <input type="text" class="form-control" id="workingHours" placeholder="Enter Working Hours" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Charge</label>
+                        <input type="number" class="form-control" id="charge" placeholder="Enter Charge" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Image</label>
+                        <input type="file" class="form-control" id="image" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" onclick="addDoctor()">Add</button>
+                        <button type="button" class="btn btn-warning" onclick="updateDoctor()">Update</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteDoctor()">Delete</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6">
-            <div class="doctor-table-container">
-                <table class="doctor-table">
-                    <thead>
+        <div class="col-md-7">
+            <div class="table-container">
+                <h5 class="text-center text-info">Doctor List</h5>
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="bg-primary text-white">
                     <tr>
-                        <th>Doctor ID</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact</th>
+                        <th>About</th>
                         <th>Department</th>
                         <th>Working Hours</th>
                         <th>Charge</th>
@@ -70,57 +82,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    function addDoctor() {
-        const doctor = {
-            name: $('#name').val(),
-            email: $('#email').val(),
-            contact: $('#contact').val(),
-            about: $('#about').val(),
-            department: $('#department').val(),
-            workingHours: $('#workingHours').val(),
-            charge: $('#charge').val()
-        };
-
-        $.ajax({
-            url: 'api/v1/doctor/save',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(doctor),
-            success: function () {
-                alert('Doctor added successfully!');
-                getAllDoctors();
-            },
-            error: function () {
-                alert('Failed to add doctor.');
-            }
-        });
-    }
-
-    function getAllDoctors() {
-        $.ajax({
-            url: 'api/v1/doctor/getAll',
-            method: 'GET',
-            success: function (response) {
-                const doctors = response.data;
-                const tbody = $('#doctorTableBody');
-                tbody.empty();
-                doctors.forEach(doctor => {
-                    tbody.append(`<tr>
-                        <td>${doctor.docId}</td>
-                        <td>${doctor.name}</td>
-                        <td>${doctor.email}</td>
-                        <td>${doctor.contact}</td>
-                        <td>${doctor.department}</td>
-                        <td>${doctor.workingHours}</td>
-                        <td>${doctor.charge}</td>
-                    </tr>`);
-                });
-            }
-        });
-    }
-
-    getAllDoctors();
-</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/doctor.js"></script>
 </body>
 </html>

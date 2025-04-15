@@ -15,7 +15,7 @@ public class ClientDTO {
     private String lastName;
     private int age;
     private String address;
-    private String contact;
+    private String contactNo;
     private String email;
     private String gender;
 }

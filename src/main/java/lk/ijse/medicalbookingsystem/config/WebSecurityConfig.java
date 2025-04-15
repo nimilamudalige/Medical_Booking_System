@@ -51,21 +51,15 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                                 "/api/v1/auth/refreshToken",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
-                                "/swagger-ui.html").permitAll()
+                                "/swagger-ui.html",
+                                 "/api/v1/client/**",
+                                 "/api/v1/checkup/**",
+                                 "/api/v1/doctor/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:63342")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true);
     }
 
 }

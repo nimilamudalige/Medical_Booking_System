@@ -14,5 +14,5 @@ public class CheckUpDTO {
     private String image;
     private double price;
     private String duration;
-    private  String description;
+    private String description;
 }

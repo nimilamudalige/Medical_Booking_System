@@ -3,84 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkup Management</title>
+    <title>CheckUps Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .checkup-table-container {
-            margin: 30px auto;
-            max-width: 900px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        body {
+            background-color: #f8f9fa;
         }
-
-        .checkup-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 8px;
-            overflow: hidden;
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        .checkup-table th, .checkup-table td {
-            padding: 12px;
-            text-align: center;
-            transition: background-color 0.3s ease;
+        .table-container {
+            width: 900px;
+            background: white;
+            border-radius: 12px;
         }
-
-        .checkup-table th {
-            background-color: #198754;
-            color: white;
-            font-weight: bold;
+        .btn {
+            border-radius: 6px;
         }
-
-        .checkup-table td {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .checkup-table tr:hover td {
-            background-color: #218838;
+        .img-thumbnail {
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-5">Checkup Management</h1>
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">CheckUps Management</h2>
     <div class="row">
-        <div class="col-md-6">
-            <form id="checkupForm" class="mt-3 p-3 bg-white rounded shadow-sm" style="max-width: 400px;">
-                <div class="form-group">
-                    <label class="font-weight-bold small">Name</label>
-                    <input type="text" class="form-control form-control-sm" id="name" placeholder="Name" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Type</label>
-                    <input type="text" class="form-control form-control-sm" id="type" placeholder="Type" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Price</label>
-                    <input type="number" class="form-control form-control-sm" id="price" placeholder="Price" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Duration</label>
-                    <input type="text" class="form-control form-control-sm" id="duration" placeholder="Duration" required>
-                </div>
-                <div class="form-group">
-                    <label class="font-weight-bold small">Description</label>
-                    <textarea class="form-control form-control-sm" id="description" placeholder="Description" required></textarea>
-                </div>
-                <button type="button" class="btn btn-success btn-sm mr-1" onclick="addCheckup()">Add</button>
-                <button type="button" class="btn btn-warning btn-sm mr-1" onclick="updateCheckup()">Update</button>
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteCheckup()">Delete</button>
-            </form>
+        <div class="col-md-5">
+            <div class="card p-3">
+                <h5 class="text-center text-success">Manage CheckUp</h5>
+                <form id="checkupForm" class="mt-3" enctype="multipart/form-data">
+                    <input type="hidden" id="checkUpId"> <!-- Hidden ID -->
+                    <div class="form-group">
+                        <label class="font-weight-bold">CheckUp Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Type</label>
+                        <input type="text" class="form-control" id="type" placeholder="Enter Type" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Price</label>
+                        <input type="number" class="form-control" id="price" placeholder="Enter Price" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Duration</label>
+                        <input type="text" class="form-control" id="duration" placeholder="e.g. 30 minutes" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Description</label>
+                        <textarea class="form-control" id="description" placeholder="Enter Description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Image</label>
+                        <input type="file" class="form-control" id="image" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" onclick="addCheckUp()">Add</button>
+                        <button type="button" class="btn btn-warning" onclick="updateCheckUp()">Update</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteCheckUp()">Delete</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6">
-            <div class="checkup-table-container">
-                <table class="checkup-table">
-                    <thead>
+        <div class="col-md-7">
+            <div class="table-container">
+                <h5 class="text-center text-info">CheckUp List</h5>
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="bg-primary text-white">
                     <tr>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Type</th>
                         <th>Price</th>
@@ -89,6 +85,7 @@
                     </tr>
                     </thead>
                     <tbody id="checkupTableBody">
+                    <!-- CheckUp data rows will go here -->
                     </tbody>
                 </table>
             </div>
@@ -96,54 +93,9 @@
     </div>
 </div>
 
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    function addCheckup() {
-        const checkup = {
-            name: $('#name').val(),
-            type: $('#type').val(),
-            price: $('#price').val(),
-            duration: $('#duration').val(),
-            description: $('#description').val()
-        };
-
-        $.ajax({
-            url: 'api/v1/checkup/save',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(checkup),
-            success: function () {
-                alert('Checkup added successfully!');
-                getAllCheckups();
-            },
-            error: function () {
-                alert('Failed to add checkup.');
-            }
-        });
-    }
-
-    function getAllCheckups() {
-        $.ajax({
-            url: 'api/v1/checkup/getAll',
-            method: 'GET',
-            success: function (response) {
-                const checkups = response.data;
-                const tbody = $('#checkupTableBody');
-                tbody.empty();
-                checkups.forEach(checkup => {
-                    tbody.append(`<tr>
-                        <td>${checkup.name}</td>
-                        <td>${checkup.type}</td>
-                        <td>${checkup.price}</td>
-                        <td>${checkup.duration}</td>
-                        <td>${checkup.description}</td>
-                    </tr>`);
-                });
-            }
-        });
-    }
-
-    getAllCheckups();
-</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/checkup.js"></script>
 </body>
 </html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Appointment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 14rem; /* Smaller card size */
+        }
+        .card-img-top {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            height: 150px; /* Fixed height for uniform image size */
+            object-fit: cover; /* Ensure image covers the area */
+        }
+        .searchBar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        /*///////////////*/
+
+         .input-group .input-group-text {
+             border: none;
+             border-top-left-radius: 25px;
+             border-bottom-left-radius: 25px;
+         }
+
+        .input-group .form-control {
+            border-left: none;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .input-group {
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .input-group input::placeholder,
+        .input-group select {
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">Doctor Appointments</h2>
+    <div class="searchBar row justify-content-center align-items-center mb-4">
+        <div class="col-md-5 mb-2">
+            <div class="input-group shadow-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white"><i class="fas fa-search"></i></span>
+                </div>
+                <input type="text" id="searchBar" class="form-control" placeholder="Search Doctor by Name">
+            </div>
+        </div>
+        <div class="col-md-4 mb-2">
+            <div class="input-group shadow-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white"><i class="fas fa-hospital-symbol"></i></span>
+                </div>
+                <select id="departmentDropdown" class="form-control">
+                    <option value="">All Departments</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="doctorCardsContainer" class="row">
+    </div>
+</div>
+<div class="modal fade" id="makeAppointmentModal" tabindex="-1" aria-labelledby="makeAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="makeAppointmentModalLabel">Make Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="appointmentForm">
+                    <h5>Client Details</h5>
+                    <div class="form-group">
+                        <label for="clientFirstName">First Name</label>
+                        <input type="text" class="form-control" id="clientFirstName" placeholder="Enter First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientLastName">Last Name</label>
+                        <input type="text" class="form-control" id="clientLastName" placeholder="Enter Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Email</label>
+                        <input type="email" class="form-control" id="clientEmail" placeholder="Enter Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientContactNo">Contact Number</label>
+                        <input type="text" class="form-control" id="clientContactNo" placeholder="Enter Contact Number" required>
+                    </div>
+                    <h5>Appointment Details</h5>
+                    <div class="form-group">
+                        <label for="appointmentType">Appointment Type</label>
+                        <input type="text" class="form-control" id="appointmentType" placeholder="Enter Appointment Type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate">Date</label>
+                        <input type="date" class="form-control" id="appointmentDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime">Time</label>
+                        <input type="time" class="form-control" id="appointmentTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" class="form-control" id="amount" placeholder="Enter Amount" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmAppointmentButton">Confirm Appointment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewMoreModal" tabindex="-1" aria-labelledby="viewMoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewMoreModalLabel">Doctor Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img id="viewMoreDoctorImage" src="" alt="Doctor Image" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <h5 id="viewMoreDoctorName"></h5>
+                        <p id="viewMoreDoctorDetails"></p>
+                        <p id="viewMoreDoctorDescription"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/doctorAppointment.js"></script>
+</body>
+</html>

@@ -22,13 +22,14 @@ public class Doctor implements Serializable {
     @Column(name = "docId")
     private UUID docId;
     private String name;
-    private String image;
     private String email;
     private String contact;
     private String about;
     private String department;
     private String workingHours;
     private double charge;
+    @Lob
+    private String image;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Appointment> appointments;

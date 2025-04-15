@@ -1,0 +1,199 @@
+$(document).ready(function () {
+    let doctors = [];
+
+    // Fetch all doctors and populate the UI
+    function getAllDoctors() {
+        $.ajax({
+            url: 'http://localhost:8081/api/v1/doctor/getAll',
+            method: 'GET',
+            success: function (response) {
+                doctors = response.data;
+                populateDepartments(doctors);
+                displayDoctors(doctors);
+            },
+            error: function (xhr, status, error) {
+                alert('Failed to fetch doctors: ' + xhr.responseText);
+            }
+        });
+    }
+
+    // Populate department dropdown
+    function populateDepartments(doctors) {
+        const departments = [...new Set(doctors.map(doctor => doctor.department))];
+        const dropdown = $('#departmentDropdown');
+        dropdown.empty();
+        dropdown.append('<option value="">All Departments</option>');
+        departments.forEach(department => {
+            dropdown.append(`<option value="${department}">${department}</option>`);
+        });
+    }
+
+    // Display doctors in cards
+    function displayDoctors(doctors) {
+        const container = $('#doctorCardsContainer');
+        container.empty();
+        doctors.forEach(doctor => {
+            const card = `
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                        <img src="data:image/jpeg;base64,${doctor.image}" class="card-img-top" alt="Doctor Image">
+                        <div class="card-body">
+                            <h5 class="card-title">${doctor.name}</h5>
+                            <p class="card-text">Department: ${doctor.department}</p>
+                            <p class="card-text">Charge: ${doctor.charge}</p>
+                            <a href="#" class="btn btn-primary view-more" data-id="${doctor.docId}">View More</a>
+                            <a href="#" class="btn btn-success mt-2 make-appointment" data-id="${doctor.docId}">Make Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.append(card);
+        });
+    }
+
+    // Handle "View More" button click
+    $(document).on('click', '.view-more', function (event) {
+        event.preventDefault();
+        const doctorId = $(this).data('id'); // Get the doctor's ID from the button
+        if (doctorId) {
+            viewDoctorDetails(doctorId); // Call the function to view doctor details
+        } else {
+            alert('Doctor ID not found!');
+        }
+    });
+
+// Populate the modal with doctor details
+    function viewDoctorDetails(doctorId) {
+        const doctor = doctors.find(d => d.docId === doctorId);
+        if (doctor) {
+            $('#viewMoreDoctorImage').attr('src', `data:image/jpeg;base64,${doctor.image}`);
+            $('#viewMoreDoctorName').text(doctor.name);
+            $('#viewMoreDoctorDetails').html(`
+            <p><strong>Email:</strong> ${doctor.email}</p>
+            <p><strong>Department:</strong> ${doctor.department}</p>
+            <p><strong>Working Hours:</strong> ${doctor.workingHours}</p>
+            <p><strong>Charge:</strong> $${doctor.charge}</p>
+        `);
+            $('#viewMoreDoctorDescription').text(doctor.about); // Populate the description
+            $('#viewMoreModal').modal('show'); // Show the modal
+        } else {
+            alert('Doctor not found!');
+        }
+    }
+    // Load doctor details into the modal
+    function loadDoctorDetails(doctorId) {
+        $.ajax({
+            url: `http://localhost:8081/api/v1/doctor/${doctorId}`,
+            method: 'GET',
+            success: function (response) {
+                const doctor = response.data;
+
+                // Populate the modal with doctor details
+                $('#viewMoreDoctorImage').attr('src', `data:image/jpeg;base64,${doctor.image}`);
+                $('#viewMoreDoctorName').text(doctor.name);
+                $('#viewMoreDoctorDetails').html(`
+                <p><strong>Email:</strong> ${doctor.email}</p>
+                <p><strong>Department:</strong> ${doctor.department}</p>
+                <p><strong>Working Hours:</strong> ${doctor.workingHours}</p>
+                <p><strong>Charge:</strong> $${doctor.charge}</p>
+            `);
+                $('#viewMoreDoctorDescription').text(doctor.about);
+
+                // Show the modal
+                $('#viewMoreModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                alert('Failed to load doctor details: ' + xhr.responseText);
+            }
+        });
+    }
+    // Handle "Make Appointment" button click
+    $(document).on('click', '.make-appointment', function (event) {
+        event.preventDefault();
+        const doctorId = $(this).data('id'); // Get the doctor's ID from the button
+        if (doctorId) {
+            $('#makeAppointmentModal').modal('show'); // Show the modal
+        } else {
+            alert('Doctor ID not found!');
+        }
+    });
+
+// Confirm appointment
+    $('#confirmAppointmentButton').on('click', function () {
+        const appointmentData = {
+            clientFirstName: $('#clientFirstName').val(),
+            clientLastName: $('#clientLastName').val(),
+            clientEmail: $('#clientEmail').val(),
+            clientContactNo: $('#clientContactNo').val(),
+            appointmentType: $('#appointmentType').val(),
+            appointmentDate: $('#appointmentDate').val(),
+            appointmentTime: $('#appointmentTime').val(),
+            amount: $('#amount').val()
+        };
+
+        $.ajax({
+            url: 'http://localhost:8081/api/v1/appointment/save',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(appointmentData),
+            success: function () {
+                alert('Appointment confirmed!');
+                $('#makeAppointmentModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                alert('Failed to confirm appointment: ' + xhr.responseText);
+            }
+        });
+    });
+    // Handle payment button click
+    $('#paymentButton').on('click', function () {
+        alert('Redirecting to payment...');
+        // Add logic to handle payment
+    });
+
+    // Filter doctors by search term
+    $('#searchBar').on('input', function () {
+        const searchTerm = $(this).val().toLowerCase();
+        const filteredDoctors = doctors.filter(doctor => doctor.name.toLowerCase().includes(searchTerm));
+        displayDoctors(filteredDoctors);
+    });
+
+    // Filter doctors by department
+    $('#departmentDropdown').on('change', function () {
+        const selectedDepartment = $(this).val();
+        const filteredDoctors = selectedDepartment ? doctors.filter(doctor => doctor.department === selectedDepartment) : doctors;
+        displayDoctors(filteredDoctors);
+    });
+
+    // Initial load
+    getAllDoctors();
+});
+
+$(document).on('click', '.make-appointment', function (event) {
+    event.preventDefault();
+    const doctorId = $(this).data('id'); // Get the doctor's ID from the button
+    if (doctorId) {
+        const doctor = doctors.find(d => d.docId === doctorId); // Find the doctor details
+        if (doctor) {
+            // Populate the modal with doctor details
+            $('#makeAppointmentModal .modal-body').prepend(`
+                <div class="doctor-details mb-3">
+                    <img src="data:image/jpeg;base64,${doctor.image}" alt="Doctor Image" class="img-fluid rounded mb-2" style="max-height: 150px;">
+                    <h5>${doctor.name}</h5>
+                    <p><strong>Department:</strong> ${doctor.department}</p>
+                    <p><strong>Charge:</strong> $${doctor.charge}</p>
+                </div>
+            `);
+            $('#makeAppointmentModal').modal('show'); // Show the modal
+        } else {
+            alert('Doctor details not found!');
+        }
+    } else {
+        alert('Doctor ID not found!');
+    }
+});
+
+// Clear doctor details when the modal is closed
+$('#makeAppointmentModal').on('hidden.bs.modal', function () {
+    $('.doctor-details').remove();
+});

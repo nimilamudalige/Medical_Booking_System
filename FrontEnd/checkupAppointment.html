@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckUp Appointments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card img {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-title {
+        }
+        .card-text {
+            font-size: 0.9rem;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-bar .form-control {
+            border-radius: 25px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar {
+            margin-bottom: 30px;
+        }
+
+        .search-bar .form-control {
+            border-radius: 50px !important;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .search-bar .form-control:focus {
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <h2 class="text-center text-primary mb-4">Available CheckUps</h2>
+    <div class="search-bar d-flex justify-content-center">
+        <div class="input-group input-group-sm w-50">
+            <input type="text" id="searchBar" class="form-control rounded-pill px-3" placeholder="🔍 Search CheckUp by Name">
+        </div>
+    </div>
+    <div class="row" id="checkupCardsContainer">
+    </div>
+</div>
+
+
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/checkUpAppointment.js"></script>
+</body>
+</html>

@@ -21,11 +21,12 @@ public class CheckUp implements Serializable {
     private UUID checkUpId;
     private String name;
     private String type;
+    @Lob
     private String image;
     private double price;
     private String duration;
     private String description;
 
-    @OneToMany(mappedBy = "checkUp", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Appointment> appointments;
+//    @OneToMany(mappedBy = "checkUp", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Appointment> appointments;
 }
