@@ -27,7 +27,10 @@
 ## 📸 Screenshots
 
 - **Home Page**
-- ![HomePage]()
+- ![HomePage](https://github.com/nimilamudalige/Medical_Booking_System/blob/ef39b162d5663a9aa85d990fe5a8f10ab9bb21e0/Screenshot%20(70).png)
+- ![HomePage](https://github.com/nimilamudalige/Medical_Booking_System/blob/ef39b162d5663a9aa85d990fe5a8f10ab9bb21e0/Screenshot%20(71).png)
+- ![HomePage](https://github.com/nimilamudalige/Medical_Booking_System/blob/ef39b162d5663a9aa85d990fe5a8f10ab9bb21e0/Screenshot%20(72).png)
+- ![HomePage](https://github.com/nimilamudalige/Medical_Booking_System/blob/ef39b162d5663a9aa85d990fe5a8f10ab9bb21e0/Screenshot%20(73).png)
 
 - **Doctor Appointment Page**
 
