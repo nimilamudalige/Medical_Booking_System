@@ -1,469 +1,416 @@
-/* =========== Google Fonts ============ */
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+:root {
+    --primary: #092562;
+    --primary-dark: #0a2368;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #346ab5;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+}
 
-/* =============== Globals ============== */
 * {
-    font-family: "Ubuntu", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    --blue: #2a2185;
-    --white: #fff;
-    --gray: #f5f5f5;
-    --black1: #222;
-    --black2: #999;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
+    background-color: #f9fafb;
+}
+
+.dashboard {
+    display: flex;
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
-.container {
-    position: relative;
-    width: 100%;
+.sidebar {
+    width: 250px;
+    background-color: white;
+    border-right: 1px solid var(--gray-200);
+    padding: 1.5rem;
 }
 
-/* =============== Navigation ================ */
-.navigation {
-    position: fixed;
-    width: 300px;
-    height: 100%;
-    background: var(--blue);
-    border-left: 10px solid var(--blue);
-    transition: 0.5s;
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--primary);
+}
+
+.logo-icon {
+    margin-right: 0.75rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: var(--gray-100);
+}
+
+.nav-link.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.nav-link i {
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
+}
+
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gray-800);
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--gray-300);
+    margin-right: 0.75rem;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--gray-700);
 }
-.navigation.active {
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.stat-title {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+}
+
+.stat-change {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.stat-change.positive {
+    color: var(--success);
+}
+
+.stat-change.negative {
+    color: var(--danger);
+}
+
+.timetable-container, .appointments-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--gray-800);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.timetable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.timetable th {
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 500;
+    color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.timetable td {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-200);
+    vertical-align: top;
+    height: 100px;
+}
+
+.timetable .hour {
+    font-size: 0.75rem;
+    color: var(--gray-600);
+    padding: 0.25rem;
+    text-align: center;
+    font-weight: 500;
     width: 80px;
 }
 
-.navigation ul {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.navigation ul li {
-    position: relative;
-    width: 100%;
-    list-style: none;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-}
-
-.navigation ul li:hover,
-.navigation ul li.hovered {
-    background-color: var(--white);
-}
-
-.navigation ul li:nth-child(1) {
-    margin-bottom: 40px;
-    pointer-events: none;
-}
-
-.navigation ul li a {
-    position: relative;
-    display: block;
-    width: 100%;
-    display: flex;
-    text-decoration: none;
-    color: var(--white);
-}
-.navigation ul li:hover a,
-.navigation ul li.hovered a {
-    color: var(--blue);
-}
-
-.navigation ul li a .icon {
-    position: relative;
-    display: block;
-    min-width: 60px;
-    height: 60px;
-    line-height: 75px;
-    text-align: center;
-}
-.navigation ul li a .icon ion-icon {
-    font-size: 1.75rem;
-}
-
-.navigation ul li a .title {
-    position: relative;
-    display: block;
-    padding: 0 10px;
-    height: 60px;
-    line-height: 60px;
-    text-align: start;
-    white-space: nowrap;
-}
-
-/* --------- curve outside ---------- */
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px 35px 0 10px var(--white);
-    pointer-events: none;
-}
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px -35px 0 10px var(--white);
-    pointer-events: none;
-}
-
-/* ===================== Main ===================== */
-.main {
-    position: absolute;
-    width: calc(100% - 300px);
-    left: 300px;
-    min-height: 100vh;
-    background: var(--white);
-    transition: 0.5s;
-}
-.main.active {
-    width: calc(100% - 80px);
-    left: 80px;
-}
-
-.topbar {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.toggle {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
+.appointment {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
     cursor: pointer;
 }
 
-.search {
-    position: relative;
-    width: 400px;
-    margin: 0 10px;
+.appointment.general {
+    background-color: rgba(37, 99, 235, 0.1);
+    border-left: 3px solid var(--primary);
 }
 
-.search label {
-    position: relative;
-    width: 100%;
+.appointment.surgery {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--danger);
 }
 
-.search label input {
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    padding: 5px 20px;
-    padding-left: 35px;
-    font-size: 18px;
-    outline: none;
-    border: 1px solid var(--black2);
+.appointment.consultation {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-left: 3px solid var(--success);
 }
 
-.search label ion-icon {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    font-size: 1.2rem;
-}
-
-.user {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.user img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* ======================= Cards ====================== */
-.cardBox {
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 30px;
-}
-
-.cardBox .card {
-    position: relative;
-    background: var(--white);
-    padding: 30px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-}
-
-.cardBox .card .numbers {
-    position: relative;
+.appointment-time {
     font-weight: 500;
-    font-size: 2.5rem;
-    color: var(--blue);
 }
 
-.cardBox .card .cardName {
-    color: var(--black2);
-    font-size: 1.1rem;
-    margin-top: 5px;
+.appointment-patient {
+    margin-top: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.cardBox .card .iconBx {
-    font-size: 3.5rem;
-    color: var(--black2);
+.appointment-doctor {
+    font-size: 0.75rem;
+    color: var(--gray-600);
 }
 
-.cardBox .card:hover {
-    background: var(--blue);
-}
-.cardBox .card:hover .numbers,
-.cardBox .card:hover .cardName,
-.cardBox .card:hover .iconBx {
-    color: var(--white);
+.appointment-list {
+    list-style: none;
 }
 
-/* ================== Order Details List ============== */
-.details {
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 30px;
-    /* margin-top: 10px; */
-}
-
-.details .recentOrders {
-    position: relative;
-    display: grid;
-    min-height: 500px;
-    background: var(--white);
-    padding: 20px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-}
-
-.details .cardHeader {
+.appointment-item {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-.cardHeader h2 {
-    font-weight: 600;
-    color: var(--blue);
-}
-.cardHeader .btn {
-    position: relative;
-    padding: 5px 10px;
-    background: var(--blue);
-    text-decoration: none;
-    color: var(--white);
-    border-radius: 6px;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-200);
 }
 
-.details table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-.details table thead td {
-    font-weight: 600;
-}
-.details .recentOrders table tr {
-    color: var(--black1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.details .recentOrders table tr:last-child {
+.appointment-item:last-child {
     border-bottom: none;
 }
-.details .recentOrders table tbody tr:hover {
-    background: var(--blue);
-    color: var(--white);
+
+.appointment-item-details {
+    flex: 1;
 }
-.details .recentOrders table tr td {
-    padding: 10px;
-}
-.details .recentOrders table tr td:last-child {
-    text-align: end;
-}
-.details .recentOrders table tr td:nth-child(2) {
-    text-align: end;
-}
-.details .recentOrders table tr td:nth-child(3) {
-    text-align: center;
-}
-.status.delivered {
-    padding: 2px 4px;
-    background: #8de02c;
-    color: var(--white);
-    border-radius: 4px;
-    font-size: 14px;
+
+.appointment-item-patient {
     font-weight: 500;
+    margin-bottom: 0.25rem;
 }
-.status.pending {
-    padding: 2px 4px;
-    background: #e9b10a;
-    color: var(--white);
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
+
+.appointment-item-info {
+    display: flex;
+    font-size: 0.875rem;
+    color: var(--gray-600);
 }
-.status.return {
-    padding: 2px 4px;
-    background: #f00;
-    color: var(--white);
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
+
+.appointment-item-info span {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
 }
-.status.inProgress {
-    padding: 2px 4px;
-    background: #1795ce;
-    color: var(--white);
-    border-radius: 4px;
-    font-size: 14px;
+
+.appointment-item-info i {
+    margin-right: 0.375rem;
+}
+
+.appointment-item-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
     font-weight: 500;
 }
 
-.recentCustomers {
-    position: relative;
-    display: grid;
-    min-height: 500px;
-    padding: 20px;
-    background: var(--white);
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-}
-.recentCustomers .imgBx {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    overflow: hidden;
-}
-.recentCustomers .imgBx img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.recentCustomers table tr td {
-    padding: 12px 10px;
-}
-.recentCustomers table tr td h4 {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.2rem;
-}
-.recentCustomers table tr td h4 span {
-    font-size: 14px;
-    color: var(--black2);
-}
-.recentCustomers table tr:hover {
-    background: var(--blue);
-    color: var(--white);
-}
-.recentCustomers table tr:hover td h4 span {
-    color: var(--white);
+.status-confirmed {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
 }
 
-/* ====================== Responsive Design ========================== */
-@media (max-width: 991px) {
-    .navigation {
-        left: -300px;
-    }
-    .navigation.active {
-        width: 300px;
-        left: 0;
-    }
-    .main {
-        width: 100%;
-        left: 0;
-    }
-    .main.active {
-        left: 300px;
-    }
-    .cardBox {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.status-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.status-cancelled {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.appointment-item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: var(--gray-200);
+}
+
+.time-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date-selector {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+.view-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-option {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--gray-300);
+    background-color: white;
+    cursor: pointer;
+}
+
+.view-option.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
 }
 
 @media (max-width: 768px) {
-    .details {
-        grid-template-columns: 1fr;
+    .dashboard {
+        flex-direction: column;
     }
-    .recentOrders {
-        overflow-x: auto;
-    }
-    .status.inProgress {
-        white-space: nowrap;
-    }
-}
 
-@media (max-width: 480px) {
-    .cardBox {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    .cardHeader h2 {
-        font-size: 20px;
-    }
-    .user {
-        min-width: 40px;
-    }
-    .navigation {
+    .sidebar {
         width: 100%;
-        left: -100%;
-        z-index: 1000;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+        padding: 1rem;
     }
-    .navigation.active {
-        width: 100%;
-        left: 0;
-    }
-    .toggle {
-        z-index: 10001;
-    }
-    .main.active .toggle {
-        color: #fff;
-        position: fixed;
-        right: 0;
-        left: initial;
+
+    .stat-card {
+        min-width: 100%;
     }
 }

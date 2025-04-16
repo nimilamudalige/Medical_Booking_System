@@ -1,45 +1,47 @@
-$(document).ready(function() {
-    $('#registerForm').submit(function(e) {
-        e.preventDefault();
-        registerUser();
+$(document).ready(function () {
+    // Attach submit event to the registration form
+    $('#registerForm').submit(function (e) {
+        e.preventDefault(); // Prevent default form submission
+        registerUser(); // Call the registerUser function
     });
-})
+});
 
 function registerUser() {
-    console.log("btn clicked");
-    const username = document.getElementById('username').value;
-    const emailRegister = document.getElementById('emailRegister').value;
-    const passwordRegister = document.getElementById('passwordRegister').value;
-    const role = document.getElementById('role').value;
-
+    // Collect form data
     const data = {
-        username: username,
-        emailRegister: emailRegister,
-        passwordRegister: passwordRegister,
-        role: role
+        username: $('#username').val(),
+        email: $('#emailRegister').val(),
+        password: $('#passwordRegister').val(),
+        role: $('#role').val()
     };
 
+    // Send data to the backend API
     fetch('http://localhost:8081/api/v1/user/register', {
         method: 'POST',
-        success: function(response) {
-            console.log('Registration successful:', response);
-            Swal.fire('User registered successfully');
-            window.localStorage.setItem('token', response.data.token);
-            console.log('Redirecting to login page...');
-            window.location.href = 'login.html';
-        },
         headers: {
             'Content-Type': 'application/json'
-            // 'token': "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6InBhc2FuQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQyMzE1MTEwLCJleHAiOjE3NDMzNTE5MTB9.KsuJvemTCHZ5qNYu9eFZtRUEj0riz69oI--udQzV4P1Ey3u8dLNCRqWhNbUDheiMgZgnkZ8P8Deg_2BdY402wg"
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.message || 'Failed to register user');
+                });
+            }
+            return response.json();
+        })
         .then(data => {
-            alert(data.message);
+            if (data && data.data && data.data.token) {
+                console.log('Registration successful:', data);
+                Swal.fire('User registered successfully');
+                window.location.href = 'login.html'; // Redirect to login page
+            } else {
+                throw new Error('Invalid response structure from server');
+            }
         })
         .catch(error => {
-            alert('Registration failed!');
-            console.error('Error:', error);
+            console.error('Error during registration:', error);
+            Swal.fire('Registration failed: ' + error.message);
         });
 }
