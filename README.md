@@ -37,6 +37,7 @@
 ![Doctor Appointment](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(81).png)
 
 - **Admin Dashboard**
+  ![dashboard](https://github.com/nimilamudalige/Medical_Booking_System/blob/17bb404e7c278d32feb47df9476360dc110ae0c1/Screenshot%20(85).png)
    
 - **About us page**
   ![About](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(79).png)
@@ -45,12 +46,12 @@
   
 - **CheckUps**
   
-
-- 
 - **Login and Registor**
+![Login](https://github.com/nimilamudalige/Medical_Booking_System/blob/17bb404e7c278d32feb47df9476360dc110ae0c1/Screenshot%20(83).png)
 
-- 
+  
 - **Appointment Confirmation View**
+  [Appointment](https://github.com/nimilamudalige/Medical_Booking_System/blob/17bb404e7c278d32feb47df9476360dc110ae0c1/Screenshot%20(82).png)
   
   
 ---
