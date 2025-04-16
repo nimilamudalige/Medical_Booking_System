@@ -1,7 +1,7 @@
 # MediFlow - Medical Booking System
 
 ## 📌 Project Description
-**MediFlow** is a comprehensive medical appointment booking system designed to streamline the interaction between patients and healthcare providers. The application enables users to easily book appointments, manage check-ups, and view doctor availability. It is built with **Spring Boot** for the backend and integrates a **Bootstrap/jQuery**-based frontend for a smooth and responsive user experience.
+**MediFlow** is a comprehensive medical appointment booking system designed to streamline the interaction between patients and healthcare providers. The application enables users to easily book appointments, manage check-ups, and view doctor availability. It is built with **Spring Boot** for the backend and integrates a **HTML/CSS/jQuery**-based frontend for a smooth and responsive user experience.
 
 ---
 
