@@ -33,24 +33,26 @@
 - ![HomePage](https://github.com/nimilamudalige/Medical_Booking_System/blob/ef39b162d5663a9aa85d990fe5a8f10ab9bb21e0/Screenshot%20(73).png)
 
 - **Doctor Appointment Page**
+![Doctor Appointment](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(80).png)
+![Doctor Appointment](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(81).png)
 
 - **Admin Dashboard**
    
 - **About us page**
-  
+  ![About](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(79).png)
 - **contact us page**
+  ![Contact](https://github.com/nimilamudalige/Medical_Booking_System/blob/786d4bd75c86a59c4d61cfb479f06134b4ede97b/Screenshot%20(78).png)
   
 - **CheckUps**
+  
 
 - 
 - **Login and Registor**
 
 - 
 - **Appointment Confirmation View**
-- 
-- 
-- *(You can add images here by uploading them to your repo and using `![Alt Text](image-path)`)*
-
+  
+  
 ---
 
 ## 🛠️ Technologies Used
